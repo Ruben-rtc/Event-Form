@@ -1,4 +1,5 @@
 Create database form_database;
+use form_database;
 Create table form_data (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
