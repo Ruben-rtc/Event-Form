@@ -23,18 +23,37 @@
 
     <h1 id="titre">Formulaire</h1>
 
+    <form id="edit-form" hidden>
+
+        <div class="champ">
+            <label for="firstname">Prénom</label>
+            <input type="text" id="firstname" name="name" required>
+        </div>
+
+        <div class="champ">
+            <label for="lastname">Nom</label>
+            <input type="text" id="lastname" name="surname" required>
+        </div>
+
+        <div class="champ">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="champ">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <p class="date" id="date"></p>
+
+        <div class="actions">
+            <button type="submit">Enregistrer</button>
+            <button type="button" id="supprimer" class="danger">Supprimer</button>
+        </div>
+    </form>
+
     <p id="status" role="status"></p>
-
-    <div id="detail" class="carte" hidden>
-        <p class="label">Email</p>
-        <p id="email"></p>
-
-        <p class="label">Message</p>
-        <p id="message"></p>
-
-        <p class="label">Envoyé le</p>
-        <p id="date"></p>
-    </div>
 
     <footer>
         <p>Created by Arthur &amp; Ruben. &copy; CPNV</p>

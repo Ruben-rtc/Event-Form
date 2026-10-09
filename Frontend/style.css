@@ -160,13 +160,23 @@ a.carte:hover {
     color: #111;
 }
 
-.label {
-    font-size: 13px;
-    font-weight: 500;
-    color: #666;
-    margin-top: 16px !important;
+/* ---------- Page détail : actions ---------- */
+#edit-form .date {
+    margin: 0 0 20px;
 }
 
-.label:first-child {
-    margin-top: 0 !important;
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+button.danger {
+    background: transparent;
+    color: #b42318;
+    border: 1px solid #b42318;
+}
+
+button.danger:hover {
+    background: #b42318;
+    color: #fff;
 }
