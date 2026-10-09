@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'évènement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Formulaire d'évènement</h1>
+
+    <form id="event-form" action="/submit" method="POST">
+    
+        <div class="form">
+            
+            <div class="champ">
+                <label for="firstname">Prénom</label>
+                <input type="text" id="firstname" name="name" placeholder="Ruben" required>
+            </div>
+
+            <div class="champ">
+                <label for="lastname">Nom</label>
+                <input type="text" id="lastname" name="surname" placeholder="ten Cate" required>
+            </div>
+
+            <div class="champ">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="email@exemple.ch" required>
+            </div>
+
+            <div class="champ">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+
+                <button type="submit">Soumettre</button>
+                <p id="status" role="status"></p>
+
+        </div>
+    </form>
+
+    <footer>
+        <p>Created by Arthur &amp; Ruben. &copy; CPNV</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

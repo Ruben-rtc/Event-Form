@@ -1,5 +1,5 @@
-Create database form_database;
-use form_database;
+CREATE DATABASE IF NOT EXISTS form_database;
+USE form_database;
 Create table form_data (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -11,5 +11,5 @@ Create table form_data (
 
 insert into form_data (name, surname, email, message) values
 ('Ruben', 'ten Cate', 'ruben.ten-cate@example.com', 'Hello, this is a test message.'),
-('Arthur', 'Saugy', 'arthur.saugy@example.com', 'Hi there! This is another test message.');
+('Arthur', 'Saugy', 'arthur.saugy@example.com', 'Coucou, ça va?.');
 
