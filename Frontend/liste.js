@@ -15,7 +15,6 @@ async function chargerFormulaires() {
 
         for (const form of forms) {
             const li = document.createElement('li');
-            li.className = 'carte';
 
             const nom = document.createElement('h2');
             nom.textContent = `${form.name} ${form.surname}`;
@@ -31,7 +30,12 @@ async function chargerFormulaires() {
             date.className = 'date';
             date.textContent = new Date(form.submitted_at).toLocaleString('fr-CH');
 
-            li.append(nom, email, message, date);
+            const lien = document.createElement('a');
+            lien.className = 'carte';
+            lien.href = `/form/${form.id}`;
+            lien.append(nom, email, message, date);
+
+            li.append(lien);
             liste.append(li);
         }
     } catch (error) {

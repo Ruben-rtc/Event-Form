@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des formulaires</title>
+    <title>Formulaire</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -19,15 +19,27 @@
         </nav>
     </header>
 
-    <h1>Liste des formulaires</h1>
+    <a class="retour" href="/liste.html">&larr; Retour à la liste</a>
+
+    <h1 id="titre">Formulaire</h1>
 
     <p id="status" role="status"></p>
-    <ul id="liste"></ul>
+
+    <div id="detail" class="carte" hidden>
+        <p class="label">Email</p>
+        <p id="email"></p>
+
+        <p class="label">Message</p>
+        <p id="message"></p>
+
+        <p class="label">Envoyé le</p>
+        <p id="date"></p>
+    </div>
 
     <footer>
         <p>Created by Arthur &amp; Ruben. &copy; CPNV</p>
     </footer>
 
-    <script src="liste.js"></script>
+    <script src="/form.js"></script>
 </body>
 </html>
