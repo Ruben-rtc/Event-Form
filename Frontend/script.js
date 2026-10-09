@@ -8,7 +8,7 @@ form.addEventListener('submit', async (event) => {
     // data = { name, surname, email, message }
 
     try {
-        const response = await fetch('/submit', {
+        const response = await fetch('/api/event-form/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),

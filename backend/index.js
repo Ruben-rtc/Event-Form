@@ -1,7 +1,10 @@
 import express from 'express';
 import formRouter from './routes/forms.js';
+import { existsSync } from 'node:fs';
 
-process.loadEnvFile();
+if (existsSync('.env')) {
+    process.loadEnvFile();
+}
 
 const app = express();
 const port = process.env.PORT;

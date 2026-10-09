@@ -1,6 +1,9 @@
 import mysql from 'mysql2/promise';
+import { existsSync } from 'node:fs';
 
-process.loadEnvFile();
+if (existsSync('.env')) {
+    process.loadEnvFile();
+}
 
 const poolConn = mysql.createPool({
     host: process.env.DB_HOST,
