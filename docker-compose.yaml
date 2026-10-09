@@ -1,0 +1,12 @@
+services:
+  db:
+    image: mysql:latests
+    environment:
+      - PASSWORD=${}
+
+  backend:
+
+  nginx:
+
+volumes:
+  db_data
