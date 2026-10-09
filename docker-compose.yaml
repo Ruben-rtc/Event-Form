@@ -1,12 +1,28 @@
 services:
   db:
-    image: mysql:latests
+    image: mysql:latest
     environment:
-      - PASSWORD=${}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+
 
   backend:
+    build: ./api
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PORT: ${PORT}
 
   nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
 
 volumes:
   db_data
