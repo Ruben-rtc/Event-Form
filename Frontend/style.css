@@ -42,6 +42,7 @@ input:focus {
 }
 
 input,
+textarea,
 button {
     font: inherit;
 }
