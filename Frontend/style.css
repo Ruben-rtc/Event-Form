@@ -76,3 +76,59 @@ textarea {
     resize: vertical;
     transition: border-color 0.15s, box-shadow 0.15s;
 }
+
+/* ---------- Header ---------- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e4dfd3;
+}
+
+.logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem;
+}
+
+nav a {
+    margin-left: 16px;
+    color: #111;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Liste ---------- */
+#liste {
+    list-style: none;
+    padding: 0;
+}
+
+.carte {
+    background: #fff;
+    border: 1px solid #e4dfd3;
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+
+.carte h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.carte p {
+    margin: 4px 0;
+}
+
+.email,
+.date {
+    font-size: 14px;
+    color: #666;
+}
