@@ -12,6 +12,21 @@ formRouter.get('', async(req, res) => {
     }
 })
 
+formRouter.get('/:id', async(req, res) => {
+    try {
+        const id = parseInt(req.params.id)
+        const form = await db.getFormById(id)
+
+        if (!form) {
+            return res.status(404).json({message: "Formulaire non trouvé"})
+        }
+        return res.json({form})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({message: "Une erreur interne est survenue"})
+    }
+})
+
 formRouter.post('/add', async(req, res) => {
     try {
         const {name, surname, email, message} = req.body

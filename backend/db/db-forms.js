@@ -18,6 +18,10 @@ const db = {
         const [rows] = await poolConn.execute('SELECT * FROM form_data');
         return rows;
     },
+    getFormById: async(id) => {
+        const [rows] = await poolConn.execute('SELECT * FROM form_data WHERE id=?', [id]);
+        return rows[0];
+    },
 
     createForm: async(name, surname, email, message) => {
         const [rows] = await poolConn.execute('INSERT INTO form_data (name, surname, email, message) VALUES (?, ?, ?, ?)', [name, surname, email, message]);
