@@ -2,15 +2,13 @@ services:
   db:
     image: mysql:latest
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_PORT: ${DB_PORT}
-      DB_NAME: ${DB_NAME}
-
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
 
   backend:
-    build: ./api
+    build: ./backend
     environment:
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
@@ -20,9 +18,11 @@ services:
       PORT: ${PORT}
 
   nginx:
-    image: nginx:latest
+    build: ./Frontend
     ports:
       - "8080:80"
+    depends_on:
+      - backend
 
 volumes:
-  db_data
+  db_data:
