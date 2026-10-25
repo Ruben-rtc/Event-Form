@@ -26,6 +26,10 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       PORT: ${PORT}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
 
   nginx:
     build: ./Frontend
@@ -33,6 +37,7 @@ services:
       - "8080:80"
     depends_on:
       - backend
+    restart: unless-stopped
 
 volumes:
   db_data:
