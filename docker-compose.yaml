@@ -1,14 +1,21 @@
 services:
   db:
-    image: mysql:latest
+    image: mysql:8.4
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
      - db_data:/var/lib/mysql
      - ./form-database.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    restart: unless-stopped
 
   backend:
     build: ./backend
@@ -19,6 +26,10 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       PORT: ${PORT}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
 
   nginx:
     build: ./Frontend
@@ -26,6 +37,7 @@ services:
       - "8080:80"
     depends_on:
       - backend
+    restart: unless-stopped
 
 volumes:
   db_data:
