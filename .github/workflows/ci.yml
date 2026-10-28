@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  # Permet de lancer le workflow à la main depuis l'onglet Actions
+  workflow_dispatch:
+
+jobs:
+  # 1. Tests unitaires du backend (base de données simulée)
+  unit-tests:
+    name: Tests unitaires (backend)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v5
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Lancer les tests unitaires
+        run: npm test
+
+  # 2. Build des images + tests sur la vraie stack docker compose
+  integration-tests:
+    name: Tests d'intégration (docker compose)
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v5
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      # Le vrai .env n'est pas sur GitHub : on utilise le modèle
+      - name: Créer le fichier .env
+        run: cp .env.example .env
+
+      - name: Vérifier docker-compose.yaml
+        run: docker compose config --quiet
+
+      - name: Construire et démarrer les conteneurs
+        run: docker compose up -d --build --wait --wait-timeout 180
+
+      - name: État des conteneurs
+        run: docker compose ps
+
+      - name: Lancer les tests d'intégration
+        working-directory: backend
+        env:
+          BASE_URL: http://localhost:8080
+        run: |
+          npm ci
+          npm run test:integration
+
+      - name: Afficher les logs en cas d'échec
+        if: failure()
+        run: docker compose logs
+
+      - name: Arrêter et supprimer les conteneurs
+        if: always()
+        run: docker compose down -v
