@@ -15,6 +15,8 @@ services:
       timeout: 5s
       retries: 20
       start_period: 30s
+    networks:
+      - back
     restart: unless-stopped
 
   backend:
@@ -29,15 +31,28 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - front
+      - back
     restart: unless-stopped
 
   nginx:
     build: ./Frontend
     ports:
-      - "8080:80"
+      - "8080:8080"
     depends_on:
       - backend
+    networks:
+      - front
     restart: unless-stopped
+
+networks:
+  # Réseau entre nginx et le backend
+  front:
+  # Réseau entre le backend et la base de données
+  # internal: aucun accès vers l'extérieur, la DB est isolée
+  back:
+    internal: true
 
 volumes:
   db_data:
