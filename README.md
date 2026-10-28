@@ -63,7 +63,10 @@ Le schéma de la base est décrit dans [diagramme_BD.md](diagramme_BD.md).
 
 ```
 Event-Form/
+<<<<<<< HEAD
 ├── .github/workflows/ci.yml # Pipeline GitHub Actions (tests)
+=======
+>>>>>>> 45d642c07152afa4290fd2b3b27fb17d744344c9
 ├── docker-compose.yaml      # Orchestration des 3 services
 ├── .env.example             # Modèle des variables d'environnement
 ├── form-database.sql        # Création de la table + données de test
@@ -75,6 +78,7 @@ Event-Form/
 └── backend/
     ├── Dockerfile           # Image Node.js non-root
     ├── eslint.config.js     # Configuration du linter
+<<<<<<< HEAD
     ├── app.js               # Application Express (importée par les tests)
     ├── index.js             # Point d'entrée : démarre le serveur
     ├── routes/forms.js      # Routes de l'API
@@ -82,6 +86,11 @@ Event-Form/
     └── tests/
         ├── unit/            # Tests unitaires (base simulée)
         └── integration/     # Tests de la stack Docker
+=======
+    ├── index.js             # Point d'entrée Express
+    ├── routes/forms.js      # Routes de l'API
+    └── db/db-forms.js       # Requêtes SQL
+>>>>>>> 45d642c07152afa4290fd2b3b27fb17d744344c9
 ```
 
 ---
@@ -205,9 +214,15 @@ Le fichier `form-database.sql` est monté **en lecture seule** dans `/docker-ent
 ### `backend/Dockerfile`
 
 - Image de base **`node:22-alpine`**, légère.
+<<<<<<< HEAD
 - `npm ci --omit=dev` : installation reproductible depuis `package-lock.json`, sans les dépendances de développement (ESLint, supertest…).
 - `package*.json` est copié **avant** le code, pour que la couche des dépendances reste en cache tant qu'elles ne changent pas.
 - `.dockerignore` exclut `node_modules`, `.env` et le dossier `tests`, qui n'ont rien à faire dans l'image.
+=======
+- `npm ci --omit=dev` : installation reproductible depuis `package-lock.json`, sans les dépendances de développement (ESLint…).
+- `package*.json` est copié **avant** le code, pour que la couche des dépendances reste en cache tant qu'elles ne changent pas.
+- `.dockerignore` exclut `node_modules` et `.env`.
+>>>>>>> 45d642c07152afa4290fd2b3b27fb17d744344c9
 - `USER node` : l'application tourne sans les droits root.
 
 ### `Frontend/Dockerfile`
@@ -220,6 +235,7 @@ Le fichier `form-database.sql` est monté **en lecture seule** dans `/docker-ent
 
 ## Tests et qualité
 
+<<<<<<< HEAD
 Le projet est testé à trois niveaux :
 
 | Niveau | Outil | Ce qui est testé | Docker nécessaire |
@@ -230,6 +246,8 @@ Le projet est testé à trois niveaux :
 
 Les tests unitaires et d'intégration sont lancés automatiquement par **GitHub Actions** (voir plus bas).
 
+=======
+>>>>>>> 45d642c07152afa4290fd2b3b27fb17d744344c9
 ### Linter
 
 ESLint (configuration recommandée, environnement Node.js) vérifie le code du backend :
@@ -242,6 +260,7 @@ npm run lint
 
 **Résultat :** au premier lancement, ESLint a détecté 2 variables inutilisées (`router` dans `index.js`, `rows` dans `db-forms.js`). Après correction : **0 erreur, 0 avertissement**.
 
+<<<<<<< HEAD
 ### Tests unitaires (backend)
 
 Les tests se trouvent dans `backend/tests/unit/`. Ils utilisent le lanceur de tests intégré à Node.js (`node:test`) et **supertest**, qui envoie des requêtes HTTP à l'application Express sans démarrer de serveur.
@@ -298,6 +317,9 @@ Les tests créent leur propre inscription et la suppriment à la fin.
 **Résultat :** 12 tests, **12 réussis**, 0 échec.
 
 ### Script de test de la stack (`test.sh`)
+=======
+### Tests automatisés
+>>>>>>> 45d642c07152afa4290fd2b3b27fb17d744344c9
 
 Le script `test.sh` démarre la stack et teste son fonctionnement réel, à travers nginx. À lancer depuis la racine, sous Linux, macOS ou **Git Bash** sous Windows :
 
@@ -340,6 +362,7 @@ Résultat : 12 réussi(s), 0 échec(s)
 
 Pour vérifier que les tests de sécurité détectent bien un problème, nous avons volontairement ajouté nginx au réseau `back` : le script a signalé « nginx peut joindre la base de données » et s'est terminé en erreur.
 
+<<<<<<< HEAD
 ### Intégration continue (GitHub Actions)
 
 Le workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) se lance automatiquement à chaque **push** et à chaque **pull request** vers `main` ou `develop`. Il peut aussi être lancé à la main depuis l'onglet **Actions** du dépôt.
@@ -353,6 +376,8 @@ Le vrai fichier `.env` n'étant pas sur GitHub, le pipeline utilise le modèle `
 
 Le résultat de chaque exécution est visible dans l'onglet **Actions** du dépôt, et directement sur chaque pull request : une pull request dont les tests échouent est signalée avant d'être fusionnée.
 
+=======
+>>>>>>> 45d642c07152afa4290fd2b3b27fb17d744344c9
 ### Tests manuels
 
 L'API a aussi été testée avec **Postman** et depuis le frontend.
@@ -382,7 +407,11 @@ L'API a aussi été testée avec **Postman** et depuis le frontend.
 
 ## Pistes d'amélioration
 
+<<<<<<< HEAD
 - **Compléter le pipeline GitHub Actions** avec `npm run lint` et `./test.sh` (persistance, utilisateurs non-root).
+=======
+- **Pipeline GitHub Actions** lançant `npm run lint` et `./test.sh` à chaque push.
+>>>>>>> 45d642c07152afa4290fd2b3b27fb17d744344c9
 - **Publication des images** sur GitHub Container Registry (GHCR), pour lancer le projet sans reconstruire.
 - **Validation des entrées** dans l'API : renvoyer `400` pour un champ vide ou un id invalide, `404` sur un `PUT` vers une inscription inexistante.
 - **Healthcheck du backend** (route `/api/health`) pour que nginx attende aussi l'API.
